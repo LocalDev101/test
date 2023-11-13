@@ -34,6 +34,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -43,6 +44,10 @@
                                     <tr>
                                         <td>
                                             {{$task->name}}
+                                        </td>
+
+                                        <td>
+                                            {{ $task->status == 0 ? 'pending' : 'completed' }}
                                         </td>
                                     
                                         <td>

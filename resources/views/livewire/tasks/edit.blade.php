@@ -14,6 +14,12 @@
                     @enderror
                 </div>
 
+                <div class="form-group mb-3">
+                    <label for="name">Complete:</label>
+                    <input type="checkbox" id="status" wire:model="status" {{ $this->status == 1 ? 'checked':''}}>
+
+                </div>
+
                 <div class="d-grid gap-2">
                     <button wire:click.prevent="updateTaskData()" class="btn btn-success btn-block">Update</button>
                     <button wire:click.prevent="cancelTask()" class="btn btn-secondary btn-block">Cancel</button>

@@ -8,7 +8,7 @@ use Livewire\Component;
 class Task extends Component
 {
 
-    public $name, $tasks, $taskId, $updateTask = false, $addTask = false;
+    public $name, $status, $tasks, $taskId, $updateTask = false, $addTask = false;
  
     /**
      * delete action listener
@@ -46,6 +46,7 @@ class Task extends Component
         try {
             Tassk::create([
                 'name'      => $this->name ,
+                'status'    => 0 ,
                 'user_id'   => auth()->user()->id
             ]);
 
@@ -66,6 +67,7 @@ class Task extends Component
             } else {
                 $this->name = $task->name;
                 $this->taskId = $task->id;
+                $this->status = $task->status;
                 $this->updateTask = true;
                 $this->addTask = false;
             }
@@ -80,7 +82,8 @@ class Task extends Component
         $this->validate();
         try {
             Tassk::whereId($this->taskId)->update([
-                'name' => $this->name
+                'name'      => $this->name ,
+                'status'    => $this->status
             ]);
             session()->flash('success','Task Updated Successfully!!');
             $this->resetFields();
@@ -110,7 +113,7 @@ class Task extends Component
 
     public function render()
     {
-        $this->tasks = Tassk::select('id', 'name')->where('user_id', auth()->user()->id)->get();
+        $this->tasks = Tassk::where('user_id', auth()->user()->id)->get();
 
         return view('livewire.tasks.task')
             ->layout('layouts.app');
